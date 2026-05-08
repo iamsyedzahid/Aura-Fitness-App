@@ -61,58 +61,9 @@ npm run dev
 
 ---
 
-## Key bug fixes
-
-### `database.py` — SQL semicolon splitting (critical fix)
-
-We now grab the raw `psycopg2` connection from SQLAlchemy via
-`engine.raw_connection()` and call `.execute()` with the **entire SQL block** at once.
-This bypasses any statement-splitting logic and lets PostgreSQL parse the full
-/pgSQL function correctly.
-
-```python
-raw_conn = engine.raw_connection()
-cursor = raw_conn.cursor()
-cursor.execute(ENTIRE_SQL_BLOCK)   # no splitting — psycopg2 sends it verbatim
-raw_conn.commit()
-```
-
-### `main.py` — deprecated `@app.on_event`
-
-Replaced with the modern `lifespan` async context manager:
-
-```python
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    setup_database()
-    yield
-```
-
 ### `auth.py` — rotating SECRET_KEY
 
 Added a warning when `SECRET_KEY` env var is missing and a random key is generated.
 Tokens issued with a random key are invalidated on every restart — the .env file
 should always set this in production.
-
-### `crud.py` — session ID filter bug
-
-`get_session()` previously filtered `WorkoutSession.id == user_id` (wrong column).
-Fixed to `WorkoutSession.id == session_id`.
-
 ---
-
-## Environment variables
-
-**Backend `.env`**:
-```
-DATABASE_URL=postgresql://postgres:password@localhost:5432/aurafit
-SECRET_KEY=your-secret-key-min-32-chars python -c 'import secrets; print(secrets.token_hex(32))'
-ACCESS_TOKEN_EXPIRE_MINUTES=60
-```
-
-**Frontend `.env.local`**:
-```
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-zahid2@gmail.com
-zahid123

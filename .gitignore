@@ -1,0 +1,36 @@
+# Root & Global
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+explanation.md
+
+# Backend (Python/FastAPI)
+backend/venv/
+backend/.venv/
+backend/env/
+backend/gui_venv/
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.env
+backend/*.db
+backend/*.sqlite
+backend/aura_fitness.db
+
+# Frontend (Next.js/Node)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env*
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Global Dependency Folders (just in case)
+node_modules/
+venv/
+__pycache__/

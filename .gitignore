@@ -4,7 +4,6 @@ Thumbs.db
 *.log
 .vscode/
 .idea/
-explanation.md
 
 # Backend (Python/FastAPI)
 backend/venv/
